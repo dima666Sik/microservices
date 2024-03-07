@@ -1,15 +1,30 @@
 services:
-  postgres:
-    container_name: postgres
+  postgres-customer:
+    container_name: postgres-customer
     image: postgres
     environment:
-      POSTGRES_USER: dimasik666
+      POSTGRES_USER: dimasik666-1
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - postgres-customer-data:/data/postgres
     ports:
       - "5442:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  postgres-fraud:
+    container_name: postgres-fraud
+    image: postgres
+    environment:
+      POSTGRES_USER: dimasik666-2
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-fraud-data:/data/postgres
+    ports:
+      - "5443:5432"
     networks:
       - postgres
     restart: unless-stopped
@@ -25,6 +40,9 @@ services:
       - pgadmin:/var/lib/pgadmin
     ports:
       - "5050:80"
+    depends_on:
+      - postgres-customer
+      - postgres-fraud
     networks:
       - postgres
     restart: unless-stopped
@@ -34,5 +52,6 @@ networks:
     driver: bridge
 
 volumes:
-  postgres:
+  postgres-fraud-data:
+  postgres-customer-data:
   pgadmin:
