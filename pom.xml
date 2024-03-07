@@ -10,15 +10,17 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
+        <module>customer</module>
         <module>fraud</module>
-        <module>fraud</module>
+        <module>eureka-server</module>
     </modules>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.starter.version>3.2.0</spring.boot.starter.version>
+        <spring-boot-starter.version>3.2.0</spring-boot-starter.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
@@ -26,9 +28,16 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.starter.version}</version>
+                <version>${spring-boot-starter.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -51,7 +60,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.boot.starter.version}</version>
+                    <version>${spring-boot-starter.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
