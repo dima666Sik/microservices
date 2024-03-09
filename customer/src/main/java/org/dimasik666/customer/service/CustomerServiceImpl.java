@@ -2,8 +2,9 @@ package org.dimasik666.customer.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dimasik666.clients.fraud.FraudClient;
+import org.dimasik666.clients.fraud.domain.dto.FraudCheckResponse;
 import org.dimasik666.customer.domain.dto.CustomerRegistrationRequest;
-import org.dimasik666.customer.domain.dto.FraudCheckResponse;
 import org.dimasik666.customer.domain.model.Customer;
 import org.dimasik666.customer.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @Transactional(readOnly = true)
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
+    private final FraudClient fraudClient;
     @Transactional
     @Override
     public void registerCustomer(CustomerRegistrationRequest request) {
@@ -32,11 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerRepository.saveAndFlush(customer);
 
-        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-                "http://FRAUD/api/v1/fraud-check/{customerId}",
-                FraudCheckResponse.class,
-                customer.getId()
-        );
+        FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
         // todo: check if fraudster
         if (fraudCheckResponse.isFraudster()){

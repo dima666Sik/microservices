@@ -1,5 +1,5 @@
 package org.dimasik666.fraud.service;
 
 public interface FraudCheckService {
-    boolean isFraudulentCustomer(Integer customerId);
+    boolean isFraudulentCustomer(long customerId);
 }

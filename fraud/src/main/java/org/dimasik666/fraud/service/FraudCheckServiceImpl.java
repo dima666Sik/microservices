@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public record FraudCheckServiceImpl(FraudCheckHistoryRepository fraudCheckHistoryRepository)
         implements FraudCheckService {
 
-    public boolean isFraudulentCustomer(Integer customerId) {
+    public boolean isFraudulentCustomer(long customerId) {
         fraudCheckHistoryRepository.save(
                 FraudCheckHistory.builder()
                                  .customerId(customerId)

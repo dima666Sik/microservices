@@ -1,4 +1,4 @@
-package org.dimasik666.customer.domain.dto;
+package org.dimasik666.clients.fraud.domain.dto;
 
 import org.springframework.lang.NonNull;
 

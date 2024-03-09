@@ -1,5 +1,6 @@
 package org.dimasik666.customer.config;
 
+import org.dimasik666.clients.fraud.FraudClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,4 +13,5 @@ public class CustomerConfig {
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
+
 }
